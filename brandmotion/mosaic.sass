@@ -1,0 +1,146 @@
+$z-index-mosaic-option-animating: 5
+$z-index-mosaic-option-img:       -1
+$z-index-mosaic-done-tick:        1
+
+body.interviews.mosaic
+  overflow: hidden
+  height: 100vh
+
+  .stopper
+    position: fixed
+    width: 100%
+    height: 100%
+    top: 0
+    left: 0
+    background-color: $green
+    z-index: 1000
+    display: none
+    +opacity(0.97)
+
+  .brand-img-wrapper
+    margin: 20px auto
+    overflow: hidden
+    +size(90px)
+    +border-radius(50%)
+
+    @media screen and (min-height: 750px)
+      margin: 30px auto
+
+    @media screen and (min-height: 850px)
+      margin: 40px auto
+
+    img
+      +size(100%)
+
+  .mosaic-options-grid
+    margin: 0 auto
+    padding: 0 20px
+    position: relative
+    +clearfix
+
+  .mosaic-option
+    width: 25%
+    float: left
+    position: relative
+    z-index: 0
+    outline: 1px solid white
+    +box-shadow(0 0 0 0 rgba(50, 50, 50, 0.2))
+    +transform(scale(0))
+
+    &:before
+      content: ''
+      display: block
+      padding-top: #{100 / 400 * 298}% // To keep wrapper's proportion on resize.
+
+    &.animating,
+    &.animated
+      z-index: $z-index-mosaic-option-animating
+      outline: none
+
+  .mosaic-option-inner
+    +position(absolute, 0 0 0 0)
+    overflow: hidden
+
+    .image-id
+      +position(absolute, null null 5px 5px)
+      z-index: 0
+
+    img
+      +size(100% auto)
+      +position(absolute, 0 0 0 0)
+      z-index: $z-index-mosaic-option-img
+
+    i.mdi-action-done
+      position: absolute
+      display: inline-block
+      width: 60px
+      height: auto
+      left: 50%
+      top: 50%
+      margin-left: -30px
+      margin-top: -40px
+      color: white
+      font-size: 60px
+      z-index: $z-index-mosaic-done-tick
+
+  .phases-nav
+    width: 535px
+    padding-top: 20px
+    margin-left: 0px - (535 / 2)
+    +position(fixed, null null 25px 50%)
+
+    @media screen and (min-height: 750px)
+      padding-top: 30px
+      bottom: 20px
+
+    @media screen and (min-height: 850px)
+      padding-top: 50px
+      bottom: 40px
+
+    .phase-steps-wrapper
+      display: inline-block
+      position: relative
+      margin: 0 14px
+
+      &:first-child
+        margin-left: 0
+
+      &:last-child
+        margin-right: 0
+
+    .divider
+      +size(1px 22px)
+      display: inline-block
+      margin: 0 10px
+      background-color: color("grey", "lighten-1")
+      +position(absolute, 22px -25px null null)
+
+    .phase-label
+      color: color("grey", "lighten-1")
+      text-align: center
+
+    .phase-step-bullet
+      display: inline-block
+      +size(6px)
+      border-radius: 50%
+      vertical-align: middle
+      position: relative
+      margin: 0 5px
+      background-color: color("grey", "lighten-1")
+
+      &.active
+        border: 1px solid color("teal", "lighten-2")
+        background-color: color("grey", "lighten-5")
+        +transform(scale(1.5))
+
+      &.completed
+        background-color: color("teal", "lighten-2")
+
+  .mosaic-timer
+    +position(fixed, null 0 0 0)
+    background-color: color("grey", "lighten-2")
+
+    .bar
+      height: 10px
+      width: 0%
+      background-color: color("red", "darken-3")
